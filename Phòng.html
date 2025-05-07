@@ -1,0 +1,535 @@
+<!DOCTYPE html><html lang="vi">
+    <html lang="vi">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Thông tin phòng</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 0;
+              background-color: #f2f2f2;
+            }
+            
+            header {
+              background: #8CCAF1;
+              padding: 10px 20px;
+              display: grid;
+              grid-template-columns: auto 1fr auto;
+              align-items: center;
+              position: sticky;
+              top: 0;
+              z-index: 1000;
+            }
+        
+            header img {
+              height: 40px;
+            }
+        
+            nav {
+              display: flex;
+              justify-content: center;
+              gap: 20px;
+            }
+        
+            nav a {
+              text-decoration: none;
+              color: black;
+              font-weight: bold;
+              padding: 8px 12px;
+              font-size: 17px;
+              display: inline-block;
+              transition: background 0.3s, transform 0.2s;
+            }
+        
+            nav a.active {
+              background: #cceeff;
+              border-radius: 4px;
+              transform: scale(0.95);
+            }
+        
+            nav a:hover {
+              background: #ffe066;
+              border-radius: 4px;
+              transform: scale(1.05);
+            }
+        
+            .user-icon {
+              font-size: 20px;
+              cursor: pointer;
+              padding-left: 20px;
+            }
+        
+            .account-panel {
+              display: none;
+              position: absolute;
+              top: 60px;
+              right: 40px;
+              width: 300px;
+              background: #cceeff;
+              border: 1px solid #999;
+              border-radius: 10px;
+              padding: 20px;
+              z-index: 999;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            }
+        
+            .account-panel h3, .account-panel h4 {
+              margin: 10px 0;
+              text-align: center;
+            }
+        
+            .form-box {
+              margin-bottom: 15px;
+            }
+        
+            .form-box input,
+            .form-box textarea {
+              width: 100%;
+              padding: 8px;
+              margin: 5px 0;
+              border-radius: 6px;
+              border: 1px solid #ccc;
+            }
+        
+            .dropdown {
+              position: relative;
+            }
+        
+            .dropdown-menu {
+              display: none;
+              position: absolute;
+              top: 30px;
+              left: 0;
+              background-color: #ffffff;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+              padding: 10px;
+              border-radius: 8px;
+              width: 200px;
+              z-index: 1000;
+            }
+        
+            .dropdown-menu li {
+              padding: 10px;
+            }
+        
+            .dropdown-menu li:hover {
+              background-color: #f4b366;
+              cursor: pointer;
+            }
+        
+            .room-container {
+              max-width: 900px;
+              margin: 20px auto;
+            }
+        
+            .room {
+              background-color: #ffffff;
+              border: 2px solid #f4b366;
+              border-radius: 10px;
+              margin-bottom: 20px;
+              display: flex;
+              overflow: hidden;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+        
+            .room img {
+              width: 300px;
+              height: auto;
+              object-fit: cover;
+            }
+        
+            .room-details {
+              padding: 15px;
+              flex: 1;
+            }
+        
+            .room-title {
+              background-color: #f4b366;
+              padding: 5px 10px;
+              color: white;
+              font-weight: bold;
+              border-radius: 5px;
+              display: inline-block;
+              margin-bottom: 10px;
+            }
+        
+            .info {
+              margin: 5px 0;
+            }
+        
+            
+            
+        
+            /* Modal */
+            .modal {
+              display: none;
+              position: fixed;
+              z-index: 1000;
+              left: 0; top: 0;
+              width: 100%; height: 100%;
+              background: rgba(0, 0, 0, 0.5);
+              justify-content: center;
+              align-items: center;
+            }
+        
+            .modal-content {
+              background: white;
+              padding: 30px;
+              border-radius: 10px;
+              text-align: center;
+              max-width: 400px;
+              width: 90%;
+            }
+            .btn-submit {
+              background-color: #ff5e5e;
+              border: none;
+              padding: 8px;
+              width: 100%;
+              color: white;
+              border-radius: 6px;
+              cursor: pointer;
+              transition: background 0.3s, transform 0.2s;
+            }
+        
+            .btn-submit:hover {
+              background-color: #e14c4c;
+              transform: scale(1.02);
+            }
+        
+            .success-msg {
+              color: green;
+              margin-top: 10px;
+              display: none;
+              text-align: center;
+              font-weight: bold;
+            }
+            /* Tìm kiếm */
+        .search-box {
+          padding: 5px 10px;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+          font-size: 16px;
+          width: 200px;
+          margin-left: 10px;
+        }
+        
+        .search-box:focus {
+          outline: none;
+          border-color: #4192D8;
+        }
+        
+        /* Đăng ký & Đăng nhập */
+        .auth-links a {
+          color: black;
+          margin-left: 20px;
+          text-decoration: none;
+          font-size: 18px;
+          transition: color 0.3s ease;
+        }
+        
+        .auth-links a:hover {
+          color: #E8DE23;
+        }
+        
+        .auth-links a.active {
+          font-weight: bold;
+        }    .lienhe {
+        background: linear-gradient(to right, #c8f3fe, rgb(87, 160, 202));
+        background-color: #89e2f8;
+
+        padding: 40px;
+      }
+
+      .lienhe h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        padding-left: 30px;
+      }
+
+      .lienhe p {
+        font-size: 16px;
+        margin: 10px 0;
+      }
+
+      .lienhe img {
+        height: 40px;
+        margin-top: 20px;
+      }
+      #div_lienhe {
+        padding-left: 20vw;
+        display: flex;
+      }
+      #div_img {
+        margin-top: 0px;
+        margin-right: 100px;
+      }
+      #div_img img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+      }
+
+      #div_lh li,
+      h2 {
+        color: #333;
+      }
+      .logo {
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+       }.back-button {
+    background: linear-gradient(135deg, #66d3fa, #42b0e8);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.3s;
+  }
+
+  .back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  }
+
+  .back-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  } </style>
+        </head>
+        <body>
+        
+          <header>
+            <div>
+                <img
+                  style="margin-left: 15px"
+                  class="logo"
+                  src="./z6565887036075_614e717af1372494d4e01f5b6a130d35.jpg"
+                  alt="Logo"
+                /><br />
+                <p style="font-size: x-small">DaNangTravel12</p>
+              </div>
+            <nav>
+              <a href="index.html">Trang chủ</a>
+              <a href="travel.html">Điểm đến</a>
+              <a href="am thuc.html">Ẩm thực</a>
+              <a href="dich vu.html">Dịch vụ</a>
+              <div class="dropdown">
+                <a href="javascript:void(0);" class="active" id="bookBtn">Đặt phòng</a>
+                <ul class="dropdown-menu" id="bookingDropdown">
+                    <li><a href="Đặt phong.html">Đặt phòng khách sạn</a></li>
+                    <li><a href="Tour.html">Tour du lịch</a></li>
+                    <li><a href="Đăt xe.html">Đặt xe</a></li>
+                </ul>
+              </div>
+               <!-- Tìm kiếm -->
+               <form action="#" method="get" style="margin-left: 25px;">
+                <input type="text" class="search-box" name="q" placeholder="Tìm kiếm...">
+                <button type="submit" style="display: none;"></button>
+              </form>
+              <!-- Đăng ký -->
+              <div class="auth-links" style="margin-left: 25px;">
+                <a href="dangnhap.html">Đăng nhập</a>
+                <a href="dangky.html">Đăng ký</a>
+              </div>
+            </nav>
+            <span class="user-icon" aria-label="Tài khoản người dùng" title="Tài khoản">👤</span>
+          </header>
+        
+          <div class="account-panel" id="accountPanel">
+            <h3>Quản Lý Tài Khoản</h3>
+            <div class="form-box">
+              <input type="text" placeholder="Tên đăng nhập" id="username" required>
+              <input type="email" placeholder="Gmail" id="gmail" required>
+            </div>
+            <div class="form-box">
+              <h4>Lịch sử đặt</h4>
+              <input type="text" placeholder="Tour du lịch" id="tour">
+              <input type="text" placeholder="Đặt xe" id="car">
+              <h4>Đánh giá của bạn</h4>
+              <textarea placeholder="Hãy chia sẻ trải nghiệm của bạn..." id="review" required></textarea>
+                <button class="btn-submit" onclick="submitReview()">Gửi đánh giá</button>
+                <p class="success-msg" id="successMsg">🎉 Đã gửi đánh giá thành công!</p>
+            </div>
+          </div>
+          <button class="back-button" onclick="history.back()">← Quay lại</button>
+          <div class="room-container">
+            <div class="room">
+              <img src="https://lh4.googleusercontent.com/0R4coD1AWHhDjQPASoKjmjnAmm9MayvuVww6dzVGnSK2qawebaMsV_nn5jSyb0edt-oPvpM0qG4E49rV8w1by8Xgog8I2s__YRBHRujzmmXZSe9Z7KB9tKNztyp_X7zM9OFEW3R4pkmpbN15W9HFfwuC08FjEcHIOYBxzL8aEdU9EuW0NKKcXLx_ag" alt="Phòng tiêu chuẩn">
+              <div class="room-details">
+                <div class="room-title">Phòng tiêu chuẩn</div>
+                <div class="info">🛏️ Sức chứa: 2 (tối đa 4 người)</div>
+                <div class="info">🛌 Loại giường: 2 đơn</div>
+                <div class="info">💰 Giá: 2.000.000đ/đêm</div>
+                <div class="info">🌐 Tiện nghi: WiFi, TV, điều hòa, minibar...</div>
+                <div class="info">🍽️ Dịch vụ: Ăn sáng miễn phí</div>
+                <div class="info">📍 Vị trí: Gần biển (0.5km)<button class="book-btn">Đặt phòng</button></div>
+              </div>
+            </div>
+          
+            <div class="room">
+              <img src="https://studiochupanhdep.com/Upload/Newsimages/phong-khach-san-tt-studio.jpg" alt="Phòng tổng thống">
+              <div class="room-details">
+                <div class="room-title">Phòng tổng thống</div>
+                <div class="info">🛏️ Sức chứa: 2 (tối đa 5 người)</div>
+                <div class="info">🛌 Loại giường: 1 giường lớn</div>
+                <div class="info">💰 Giá: 6.000.000đ/đêm</div>
+                <div class="info">🌐 Tiện nghi: WiFi, TV, điều hòa, minibar...</div>
+                <div class="info">🍽️ Dịch vụ: Ăn sáng, dịch vụ 24/24</div>
+                <div class="info">📍 Vị trí: Gần biển (0.5km)<button class="book-btn">Đặt phòng</button></div>
+              </div>
+            </div>
+          
+            <div class="room">
+              <img src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/67762161-2449x1632-FIT_AND_TRIM-eefdcef398d484c8496c6bb63bdae612.jpeg" alt="Phòng cặp đôi">
+              <div class="room-details">
+                <div class="room-title">Phòng cặp đôi</div>
+                <div class="info">🛏️ Sức chứa: 2 (tối đa 4 người)</div>
+                <div class="info">🛌 Loại giường: 1 đôi lớn</div>
+                <div class="info">💰 Giá: 3.000.000đ/đêm</div>
+                <div class="info">🌐 Tiện nghi: WiFi, TV, điều hòa, minibar...</div>
+                <div class="info">🍽️ Dịch vụ: Ăn sáng miễn phí</div>
+                <div class="info">📍 Vị trí: Gần biển (0.5km)<button class="book-btn">Đặt phòng</button></div>
+              </div>
+            </div>
+          
+            <div class="room">
+              <img src="https://1.bp.blogspot.com/-Xf8OaOH0j44/W3XHDJoVVgI/AAAAAAAAXOU/aPMbe710p0MlJYMYhcMtVML3oCHI5md5wCLcBGAs/s1600/khach-san-da-nang-gia-re-1.jpg" alt="Twin room">
+              <div class="room-details">
+                <div class="room-title">Twin room</div>
+                <div class="info">🛏️ Sức chứa: 2 (tối đa 4 người)</div>
+                <div class="info">🛌 Loại giường: 2 đơn</div>
+                <div class="info">💰 Giá: 4.000.000đ/đêm</div>
+                <div class="info">🌐 Tiện nghi: WiFi, TV, điều hòa, minibar...</div>
+                <div class="info">🍽️ Dịch vụ: Ăn sáng miễn phí</div>
+                <div class="info">📍 Vị trí: Gần biển (0.5km)<button class="book-btn">Đặt phòng</button></div>
+              </div>
+            </div>
+          </div>
+          
+        
+          <footer>
+            <div class="footer-info">
+             <!-- Contact Section -->
+            <section class="lienhe">
+              <div id="div_lienhe">
+                <div id="div_img">
+                  <img
+                    src="./z6565887036075_614e717af1372494d4e01f5b6a130d35.jpg"
+                    alt="Logo Footer"
+                  />
+                  <p style="color: #333">DaNangTravel12</p>
+                </div>
+                <div id="div_lh">
+                  <h2>LIÊN HỆ</h2>
+                  <ul>
+                    <li>Địa chỉ: Số 128, đường Nguyễn Trãi, Đà Nẵng.</li>
+                    <li>Hotline: 19001001910</li>
+                    <li>SĐT: 0375.124.568</li>
+                    <li>Email: DaNangTravel12@gmail.com</li>
+                    <li>Website: https://DaNangTravel12/</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </footer>
+        
+          <!-- Modal đặt phòng -->
+          <div id="bookingForm" class="modal">
+            <div class="modal-content">
+              <h2>Đặt phòng ngay</h2>
+              <input type="text" placeholder="Họ và tên">
+              <input type="date" placeholder="Ngày đến">
+              <input type="text" placeholder="Số điện thoại">
+              <input type="date" placeholder="Ngày đi">
+              <input type="email" placeholder="Gmail">
+              <button class="submitBtn">Thanh toán và xác nhận qua gmail</button>
+            </div>
+          </div>
+        
+          <script>
+            // Xử lý click vào biểu tượng người dùng
+            const userIcon = document.querySelector('.user-icon');
+            const accountPanel = document.getElementById('accountPanel'); 
+        
+            userIcon.addEventListener('click', () => {
+              accountPanel.style.display = accountPanel.style.display === 'block' ? 'none' : 'block';
+            });
+        
+            // Xử lý click vào "Đặt chỗ" để hiển thị menu lựa chọn
+            const bookBtn = document.getElementById('bookBtn');
+            const bookingDropdown = document.getElementById('bookingDropdown');
+        
+            bookBtn.addEventListener('click', () => {
+              bookingDropdown.style.display = bookingDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+        
+            // Xử lý hiển thị Modal khi nhấn "Đặt phòng"
+            const bookButtons = document.querySelectorAll('.book-btn');
+            const modal = document.getElementById('bookingForm');
+            const confirmBtn = document.querySelector('.submitBtn');
+            
+            bookButtons.forEach(btn => {
+              btn.addEventListener('click', () => {
+                modal.classList.add('show');
+                modal.style.display = 'flex';
+              });
+            });
+            
+            window.addEventListener('click', function(event) {
+              if (event.target === modal) {
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+              }
+            });
+            
+            confirmBtn.addEventListener('click', () => {
+          const name = document.querySelector('#bookingForm input[placeholder="Họ và tên"]').value.trim();
+          const phone = document.querySelector('#bookingForm input[placeholder="Số điện thoại"]').value.trim();
+          const email = document.querySelector('#bookingForm input[placeholder="Gmail"]').value.trim();
+          const checkInDate = document.querySelector('#bookingForm input[placeholder="Ngày đến"]').value.trim();
+          const checkOutDate = document.querySelector('#bookingForm input[placeholder="Ngày đi"]').value.trim();
+        
+          // Kiểm tra các trường thông tin
+          if (name && phone && email && checkInDate && checkOutDate) {
+            alert("✅ Đã xác nhận đặt phòng! Vui lòng kiểm tra Gmail để biết thông tin chi tiết.");
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+          } else {
+            alert('Vui lòng điền đầy đủ tất cả các thông tin trước khi xác nhận.');
+          }
+        });
+        
+            function submitReview() {
+          const username = document.getElementById('username').value.trim();
+          const gmail = document.getElementById('gmail').value.trim();
+          const review = document.getElementById('review').value.trim();
+        
+          if (username && gmail && review) {
+            successMsg.style.display = 'block';
+            successMsg.style.opacity = 0;
+            setTimeout(() => {
+              successMsg.style.opacity = 1;
+              successMsg.style.transition = 'opacity 0.5s ease-in';
+            }, 100);
+        
+            document.querySelector('.btn-submit').disabled = true;
+            setTimeout(() => {
+              document.querySelector('.btn-submit').disabled = false;
+            }, 3000);
+          } else {
+            alert('Vui lòng điền đầy đủ Tên, Gmail và Đánh giá.');
+          }
+        }
+        
+          </script>
+        
+        </body>
+        </html>
+ 

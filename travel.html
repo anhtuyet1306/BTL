@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm Đến Đà Nẵng</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+        body {
+        line-height: 1.6;
+        color: #333;
+      }
+
+      .tieude {
+        display: flex;
+        align-items: center;
+        padding: 10px 50px;
+        background-color: #8CCAF1;
+      }
+      .logo-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+      .logo {
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+      }
+      #acuoi {
+        margin-right: 80px;
+      }
+
+      .dieuhuong a {
+        margin-left: 20px;
+        padding-left: 45px;
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+      }
+
+      .ngonngu {
+        display: flex;
+        align-items: center;
+      }
+
+      #dangnhap,
+      #dangky,
+      #dangxuat {
+        padding-top: 2px;
+        padding-left: 20px;
+        background-color: #fff;
+        margin-right: 20px;
+        margin-left: 20px;
+        width: 120px;
+        height: 30px;
+        border-radius: 20px;
+      }
+      #dangxuat {
+  margin-left: 140px;
+  display: none;
+}
+
+      #div_dieuhuong {
+        display: flex;
+      }
+      .ngonngu input {
+        border: none;
+        background-color: #fff;
+        margin-right: 20px;
+        width: 190px;
+        height: 30px;
+        border-radius: 20px;
+      }
+
+      .ngonngu a {
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+        margin-right: 15px;
+      }
+
+     
+      .logo {
+        height: 155px;
+        width: 145px;
+        border-radius: 20px;
+        margin-left: 25px;
+      }
+
+        header img {
+          height: 200px;
+          width: 100px;
+          position: absolute;
+          left: 10px;
+         top: -30px; 
+        }
+      
+        header h1 {
+          margin-left: 60px;
+          text-align: center;
+          flex-grow: 1;
+        }
+      
+        @media (max-width: 768px) {
+          header {
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+          }
+      
+          header img {
+            display: none;
+            position: static;
+            margin-bottom: 10px;
+          }
+      
+          header h1 {
+            margin-left: 0;
+            font-size: 24px;
+          }
+        }
+      
+        .search-box:focus {
+          width: 300px;
+        }
+      
+        .search-box button {
+          display: none;
+        }
+      
+        @media (max-width: 768px) {
+          .search-box {
+            width: 100px;
+            font-size: 14px;
+          }
+      
+          .search-box:focus {
+            width: 200px;
+          }
+        }
+        .dieuhuong a {
+           margin-left: 20px;
+           padding: 8px 20px;
+           text-decoration: none;
+           color: #333;
+           font-size: 16px;
+           border: 2px solid transparent; 
+           transition: background-color 0.3s, border-color 0.3s;
+           border-radius: 5px;
+          }
+
+         .dieuhuong a:hover {
+           background-color: #E8DE23;
+ 
+          }
+        nav a.active {
+          background-color: #E8DE23;
+          color: #333;
+          border-radius: 5px;
+        }
+
+      
+        .container {
+          padding: 20px;
+          background: white;
+        }
+      
+        h2 {
+          background-color: #1f7ecb;
+          color: white;
+          padding: 10px;
+          margin-top: 30px;
+          border-radius: 5px;
+        }
+      
+        .destination-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+          margin-top: 20px;
+        }
+      
+        .destination-card {
+          background-color: #f9f9f9;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+      
+        .card-image {
+          overflow: hidden;
+        }
+      
+        .card-image img {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.5s ease, opacity 0.5s ease;
+          opacity: 0.85;
+        }
+      
+        .destination-card:hover .card-image img {
+          transform: scale(1.05);
+          opacity: 1;
+        }
+      
+        .card-content {
+          padding: 15px;
+        }
+      
+        .card-title {
+          font-size: 1.2em;
+          font-weight: bold;
+          margin-bottom: 8px;
+          color: #333;
+        }
+      
+        .card-description {
+          font-size: 0.9em;
+          color: #666;
+          line-height: 1.4;
+        }
+      
+        .travel-tags {
+          margin-top: 10px;
+        }
+      
+        .travel-tag {
+          display: inline-block;
+          background-color: #e0f7fa;
+          color: #00acc1;
+          padding: 5px 10px;
+          border-radius: 5px;
+          margin-right: 5px;
+          font-size: 0.8em;
+        }
+      
+        .contact-info {
+          margin-top: 30px;
+          padding: 15px;
+          background: linear-gradient(to right, #a9d7f7, #1fa0f3);
+          border-radius: 8px;
+          color: #333;
+          font-size: 0.9em;
+          line-height: 1.6;
+        }
+      
+        .contact-info h2 {
+          font-size: 1.1em;
+          margin-top: 0;
+          color: white;
+          left: 50px;
+        }
+        #khoangxanh {
+        width: 98vw;
+        height: 3vw;
+        background-color: rgb(114, 180, 219);
+        margin-bottom: 30px;
+        }
+        footer {
+          width: 98vw;
+        height: 15vw;
+          background: linear-gradient(to right, #AFE3FB, #2470A6);
+         padding: 20px;
+         }
+
+         .lienhe h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        padding-left: 30px;
+      }
+
+      .lienhe p {
+        font-size: 16px;
+        margin: 10px 0;
+      }
+
+      .lienhe img {
+        height: 40px;
+        margin-top: 20px;
+      }
+      #div_lienhe {
+        padding-left: 20vw;
+        display: flex;
+      }
+      #div_img {
+        margin-top: 0px;
+        margin-right: 100px;
+      }
+      #div_img img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+      }
+
+      #div_lh li,
+      h3 {
+        color: #333;
+      }
+      
+       .logo-caption {  
+         font-size: 14px;
+         color: black;
+         margin-top: 40px;
+         }
+       .logo-caption {  
+         font-size: 14px;
+         color: black;
+         margin-top: 70px;
+         }
+      </style>
+</head>
+<body>
+    <header class="tieude">
+      <div class="logo-box">
+        <img
+          src="tròn-01.png"
+          alt="Logo"
+          class="logo"
+        />
+        <p class="logo-caption">DaNangTravel12</p>
+      </div>
+      
+        <nav class="dieuhuong">
+          <div id="div_dieuhuong">
+            <a href="index.html"><div>Trang chủ</div></a>
+            <a href="am thuc.html"><div>Ẩm thực</div></a>
+            <a class="active" href="travel.html">Điểm Đến</a>
+            <a href="dịch vụ ht.html"><div>Dịch vụ</div></a>
+            <a id="acuoi" href="Đặt phong.html"><div>Đặt Phòng</div></a>
+          </div>
+        </nav>
+        <div class="ngonngu">
+          <input type="text" placeholder="Tìm Kiếm" />
+          <div id="dangky"><a href="./dangky.html">Đăng ký</a></div>
+          <div id="dangnhap"><a href="./dangnhap.html">Đăng nhập</a></div>
+          <div id="dangxuat"><a onclick="m2()">Đăng xuất</a></div>
+        </div>
+      </header>
+    <div class="container">
+        <h2>Danh lam thắng cảnh</h2>
+        <div class="destination-grid">
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://www.vietnamonline.com/media/uploads/froala_editor/images/VNO-Sun%20World%20Ba%20Na%20Hills.jpg" alt="Bà Nà Hills">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="bà nà hills.html">Bà Nà Hills</a>
+                      </h3>
+                      
+                    
+                    <p class="card-description">Bà Nà Hills là một trong những điểm du lịch nổi bật nhất tại Đà Nẵng...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Cáp Treo</span>
+                        <span class="travel-tag">Công Viên</span>
+                        <span class="travel-tag">Kiến Trúc</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://sgtravel.vn/wp-content/uploads/2020/11/cu-lao-cham.jpg" alt="Cù Lao Chàm">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="cù lao chàm.html">Cù Lao Chàm</a>
+                      </h3>
+                    <p class="card-description">Cù Lao Chàm, thuộc thành phố Hội An...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Đảo</span>
+                        <span class="travel-tag">Sinh Thái</span>
+                        <span class="travel-tag">Lặn Biển</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://image.bnews.vn/MediaUpload/Org/2017/03/15/095907_son-tra-da-nang.jpg" alt="Bán đảo Sơn Trà">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="sơn trà.html">Bán đảo Sơn Trà</a>
+                      </h3>
+                    <p class="card-description">Sơn Trà – bán đảo xanh giữa lòng thành phố biển...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Thiên Nhiên</span>
+                        <span class="travel-tag">Đồi Núi</span>
+                        <span class="travel-tag">Ngắm Cảnh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Di tích lịch sử & văn hóa</h2>
+        <div class="destination-grid">
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://huesmiletravel.com.vn/images/ngu-hanh-son-3.jpg" alt="Ngũ Hành Sơn">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="ngũ hành sơn.html">Ngũ Hành Sơn</a>
+                      </h3>
+                    <p class="card-description">Ngũ Hành Sơn là danh thắng nổi tiếng và biểu tượng du lịch văn hóa - tâm linh...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Tâm Linh</span>
+                        <span class="travel-tag">Hang Động</span>
+                        <span class="travel-tag">Kiến Trúc Cổ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://statics.vinwonders.com/museum-of-cham-sculpture-16_1648706951.jpg" alt="Bảo tàng Điêu khắc Chăm Đà Nẵng">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="bảo tàng chăm.html">Bảo tàng Điêu khắc Chăm Đà Nẵng</a>
+                      </h3>
+                    <p class="card-description">Bảo tàng Điêu khắc Chăm (Cham Museum) là nơi lưu giữ và trưng bày bộ sưu tập hiện vật Chăm Pa lớn nhất Việt Nam...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Lịch Sử</span>
+                        <span class="travel-tag">Văn Hóa</span>
+                        <span class="travel-tag">Nghệ Thuật</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://danang-shopping.com/wp-content/uploads/2016/08/da-nang-cathedral-church.jpg" alt="Nhà thờ Con Gà">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="nhà thờ con gà.html">Nhà thờ Con Gà</a>
+                      </h3>
+                    <p class="card-description">Nhà thờ Con Gà – điểm check-in mang đậm kiến trúc Pháp...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Kiến Trúc Pháp</span>
+                        <span class="travel-tag">Lịch Sử</span>
+                        <span class="travel-tag">Tôn Giáo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Bãi biển nổi tiếng</h2>
+        <div class="destination-grid">
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://i2.wp.com/dulichdongque.com/wp-content/uploads/2019/02/bai-bien-my-khe.jpg" alt="Biển Mỹ Khê">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="mỹ khê.html">Biển Mỹ Khê</a>
+                      </h3>
+                    <p class="card-description">Biển Mỹ Khê – một trong những bãi biển đẹp nhất hành tinh...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Bãi Biển</span>
+                        <span class="travel-tag">Nghỉ Dưỡng</span>
+                        <span class="travel-tag">Thể Thao Biển</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2018/04/bai-tam-non-nuoc-vntrip-e1524723653388.jpg" alt="Biển Non Nước">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="non nước.html">Biển Non Nước</a>
+                      </h3>
+                    <p class="card-description">Biển Non Nước với bãi cát trắng mịn và không gian yên bình...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Bãi Biển</span>
+                        <span class="travel-tag">Yên Tĩnh</span>
+                        <span class="travel-tag">Resort</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="https://52hz.vn/wp-content/uploads/2022/07/bai-bien-tien-sa-52hz.jpg" alt="Bãi Tiên Sa">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a href="tiên sa.html">Bãi Tiên Sa</a>
+                      </h3>
+                    <p class="card-description">Bãi Lăng Cô nằm gần đèo Hải Vân, nổi tiếng với vẻ đẹp hoang sơ...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Bãi Biển</span>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div id="khoangxanh"></div>
+            <footer>
+              <div class="footer-info">
+              <section class="lienhe">
+                <div id="div_lienhe">
+                  <div id="div_img">
+                    <img src="./z6565887036075_614e717af1372494d4e01f5b6a130d35.jpg" alt="Logo Footer"/>
+                    <p style="color: #333">DaNangTravel12</p>
+                  </div>
+                  <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                      <li>Địa chỉ: Số 128, đường Nguyễn Trãi, Đà Nẵng.</li>
+                      <li>Hotline: 19001001910</li>
+                      <li>SĐT: 0375.124.568</li>
+                      <li>Email: DaNangTravel12@gmailgmail.com</li>
+                      <li>Website: https://DaNangTravel12/</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </footer>
+        </div>
+</html>
